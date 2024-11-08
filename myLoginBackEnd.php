@@ -9,11 +9,11 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 $request_uri = $_SERVER['REQUEST_URI']; // 去掉末尾斜杠
 
 // 数据库连接信息
-$host = getenv('DB_HOST');
-$username = getenv('DB_USERNAME');
-$password = getenv('DB_PASSWORD');
-$dbname = getenv('DB_NAME');
-$port = getenv('DB_PORT');                   // 端口
+$host = 'junction.proxy.rlwy.net';  // 数据库主机
+$username = 'root';                  // 用户名
+$password = 'OoqjSOInUNPRiGeWrnJMZprBotusOUHs'; // 密码
+$dbname = 'railway';                 // 数据库名
+$port = 23097;                       // 端口
 
 
 $dsn = "mysql:host=$host;dbname=$dbname;port=$port";
@@ -150,49 +150,7 @@ if ($request_uri === '/myLoginBackEnd.php/register' && $request_method === 'POST
     exit;
 }
 
-// Todo添加API
-if ($request_uri === '/myLoginBackEnd.php/addtodo' && $request_method === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true);
-    error_log('Received input: ' . print_r($input, true));  // 打印收到的输入数据
-    $id = $input['id'] ?? null;
-    $user_id = $input['user_id'] ?? null;
-    $description = $input['description'] ?? '';
-    $status = $input['status'] ?? 0;
-    $created_at = $input['created_at'] ?? date('Y-m-d H:i:s'); // 使用当前时间戳
-    $priority = $input['priority'] ?? 'green'; // 默认值为 'green'
-
-    // 检查必要字段是否存在
-    if (empty($id) || empty($user_id) || empty($description)) {
-        echo json_encode([
-            'addSuccess' => false,
-            'message' => '缺少必要字段'
-        ]);
-        exit;
-    }
-
-    // 插入到 `todos` 表
-    $stmt = $pdo->prepare(
-        'INSERT INTO todos (id, user_id, description, status, created_at, priority) VALUES (?, ?, ?, ?, ?, ?)'
-    );
-
-    try {
-        $stmt->execute([$id, $user_id, $description, $status, $created_at, $priority]);
-        $response = [
-            'addSuccess' => true,
-            'message' => 'Todo项添加成功'
-        ];
-    } catch (PDOException $e) {
-        $response = [
-            'addSuccess' => false,
-            'message' => '添加失败，请稍后再试'
-        ];
-    }
-
-    echo json_encode($response);
-    exit;
-}
-
 echo json_encode($response);
 // 关闭连接
 $pdo = null; // 关闭 PDO 连接
-?>
+?> 
