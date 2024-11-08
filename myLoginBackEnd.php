@@ -9,11 +9,11 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 $request_uri = $_SERVER['REQUEST_URI']; // 去掉末尾斜杠
 
 // 数据库连接信息
-$host = 'junction.proxy.rlwy.net';  // 数据库主机
-$username = 'root';                  // 用户名
-$password = 'OoqjSOInUNPRiGeWrnJMZprBotusOUHs'; // 密码
-$dbname = 'railway';                 // 数据库名
-$port = 23097;                       // 端口
+$host = getenv('DB_HOST');
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
+$port = getenv('DB_PORT');                   // 端口
 
 
 $dsn = "mysql:host=$host;dbname=$dbname;port=$port";

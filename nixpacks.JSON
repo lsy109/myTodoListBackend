@@ -1,0 +1,14 @@
+{
+    "phases": {
+      "install": {
+        "nixPackages": ["php", "composer"]
+      },
+      "build": {
+        "cmds": ["echo 'No build step necessary for PHP app'"]
+      },
+      "start": {
+        "cmd": "php -S 0.0.0.0:8080 -t ."
+      }
+    }
+  }
+  
