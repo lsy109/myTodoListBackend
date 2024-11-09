@@ -53,7 +53,7 @@ if ($request_uri === '/myLoginBackEnd.php' && $request_method === 'GET') {
 $response = []; // 初始化响应数组
 
 // 登录验证 API
-if ($request_uri === '/myLoginBackEnd.php/login' && $request_method === 'POST') {
+if ($request_uri === '/index.php/login' && $request_method === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
     $email = $input['email'] ?? "";
     $password = $input['password'] ?? "";
@@ -84,7 +84,7 @@ if ($request_uri === '/myLoginBackEnd.php/login' && $request_method === 'POST') 
 } 
 
 // 用户注册 API
-if ($request_uri === '/myLoginBackEnd.php/register' && $request_method === 'POST') {
+if ($request_uri === '/index.php/register' && $request_method === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
     $userName = trim($input['username'] ?? '');
     $password = trim($input['password'] ?? '');
