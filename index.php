@@ -8,13 +8,22 @@ header('Access-Control-Allow-Headers: Content-Type'); // 允许的请求头
 $request_method = $_SERVER['REQUEST_METHOD'];
 $request_uri = $_SERVER['REQUEST_URI']; // 去掉末尾斜杠
 
-// 数据库连接信息
-$host = 'junction.proxy.rlwy.net';  // 数据库主机
-$username = 'root';                  // 用户名
-$password = 'OoqjSOInUNPRiGeWrnJMZprBotusOUHs'; // 密码
-$dbname = 'railway';                 // 数据库名
-$port = 23097;                       // 端口
+// 使用 Connection URL
+$connection_url = 'mysql://root:OoqjSOInUNPRiGeWrnJMZprBotusOUHs@junction.proxy.rlwy.net:23097/railway';
+$url_components = parse_url($connection_url);
 
+// 数据库连接信息
+$host = $url_components['host'];  // 数据库主机
+$username = $url_components['user'];                  // 用户名
+$password = $url_components['pass']; // 密码
+$dbname = ltrim($url_components['path'], '/');                 // 数据库名
+$port = $url_components['port'];                       // 端口
+
+// 根目录 API
+if ($request_uri === '/index.php' && $request_method === 'GET') {
+    echo json_encode(['success' => '成功']);
+    exit;
+}
 
 $dsn = "mysql:host=$host;dbname=$dbname;port=$port";
 $options = [
@@ -44,11 +53,7 @@ if ($request_uri === '/index.php/testConnection' && $request_method === 'GET') {
     exit;
 }
 
-// 根目录 API
-if ($request_uri === '/index.php' && $request_method === 'GET') {
-    echo json_encode(['success' => '成功']);
-    exit;
-}
+
 
 $response = []; // 初始化响应数组
 
