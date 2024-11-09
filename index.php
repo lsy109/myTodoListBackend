@@ -39,13 +39,13 @@ try {
     exit;
 }
 // 测试连接 API
-if ($request_uri === '/myLoginBackEnd.php/testConnection' && $request_method === 'GET') {
+if ($request_uri === '/index.php/testConnection' && $request_method === 'GET') {
     echo json_encode(['dbStatus' => $dbStatus]);
     exit;
 }
 
 // 根目录 API
-if ($request_uri === '/myLoginBackEnd.php' && $request_method === 'GET') {
+if ($request_uri === '/index.php' && $request_method === 'GET') {
     echo json_encode(['success' => '成功']);
     exit;
 }
